@@ -9,12 +9,14 @@ To build and run the code you need:
 
 Updated samples:
 
-- [players\dshowplayer](players/dshowplayer)
-- [dmo\dmodemo](dmo/dmodemo)
 - [baseclasses](baseclasses)
+- [capture\playcap](capture/playcap)
+- [dmo\dmodemo](dmo/dmodemo)
+- [players\dshowplayer](players/dshowplayer)
 
 Many samples require to link BaseClasses static library; I changed traditional llegacy ibrary naming (strmbase.lib, strbasd.lib) and placement, and these samples are updated for fresh environment and are re-refrenced to updated static library:
 
+- [capture\amcap](capture/amcap)
 - [filters\ezrgb24](filters/ezrgb24)
 - [filters\pushsource](filters/pushsource)
 - [filters\wavdest](filters/wavdest)
