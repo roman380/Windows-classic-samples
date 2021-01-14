@@ -16,6 +16,7 @@ Updated samples:
 Many samples require to link BaseClasses static library; I changed traditional llegacy ibrary naming (strmbase.lib, strbasd.lib) and placement, and these samples are updated for fresh environment and are re-refrenced to updated static library:
 
 - [filters\ezrgb24](filters/ezrgb24)
+- [filters\pushsource](filters/pushsource)
 - [filters\wavdest](filters/wavdest)
 
 All updated projects are combined in top level [directshow.sln](directshow.sln) solution file.

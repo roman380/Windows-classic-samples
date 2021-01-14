@@ -25,6 +25,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DMODemo", "dmo\dmodemo\DMOD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dmo", "dmo", "{F4935626-E852-456F-B8CA-02AE3B764B5D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PushSource", "filters\pushsource\pushsource.vcxproj", "{39469123-3EB7-45F3-A15B-3854DFD2C2EB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E8A3F6FA-AE1C-4C8E-A0B6-9C8480324EAA} = {E8A3F6FA-AE1C-4C8E-A0B6-9C8480324EAA}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -73,6 +78,14 @@ Global
 		{72D56FA9-FE37-4F93-B4FE-3156586B0DCC}.Release|Win32.Build.0 = Release|Win32
 		{72D56FA9-FE37-4F93-B4FE-3156586B0DCC}.Release|x64.ActiveCfg = Release|x64
 		{72D56FA9-FE37-4F93-B4FE-3156586B0DCC}.Release|x64.Build.0 = Release|x64
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Debug|Win32.Build.0 = Debug|Win32
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Debug|x64.ActiveCfg = Debug|x64
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Debug|x64.Build.0 = Debug|x64
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Release|Win32.ActiveCfg = Release|Win32
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Release|Win32.Build.0 = Release|Win32
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Release|x64.ActiveCfg = Release|x64
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +95,7 @@ Global
 		{9741C328-0EDA-4C80-B8C5-1A7E9430ADFE} = {1F9B32AB-0389-496C-8C6A-31AD2719B40D}
 		{9D7A67A0-5BC7-4CE8-A338-0A10268C00CF} = {EF8AB525-A314-4780-AD33-083DFCF601BE}
 		{72D56FA9-FE37-4F93-B4FE-3156586B0DCC} = {F4935626-E852-456F-B8CA-02AE3B764B5D}
+		{39469123-3EB7-45F3-A15B-3854DFD2C2EB} = {1F9B32AB-0389-496C-8C6A-31AD2719B40D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {824D1E4A-01B3-492C-ADA0-E5DC7ED20C62}
