@@ -11,3 +11,9 @@ Updated samples:
 
 - [players\dshowplayer](players/dshowplayer)
 - [dmo\dmodemo](dmo/dmodemo)
+- [baseclasses](baseclasses)
+
+Many samples require to link BaseClasses static library; I changed traditional llegacy ibrary naming (strmbase.lib, strbasd.lib) and placement, and these samples are updated for fresh environment and are re-refrenced to updated static library:
+
+- [filters\ezrgb24](filters/ezrgb24)
+- [filters\wavdest](filters/wavdest)
