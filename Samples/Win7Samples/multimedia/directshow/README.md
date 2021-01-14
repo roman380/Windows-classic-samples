@@ -17,3 +17,5 @@ Many samples require to link BaseClasses static library; I changed traditional l
 
 - [filters\ezrgb24](filters/ezrgb24)
 - [filters\wavdest](filters/wavdest)
+
+All updated projects are combined in top level [directshow.sln](directshow.sln) solution file.
