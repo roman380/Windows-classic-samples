@@ -339,13 +339,13 @@ HRESULT Rebar::AddBand(HWND hBand, UINT id)
 	const DWORD STRING_LEN = 32;
 	WCHAR szClassName[STRING_LEN];
 
-	if (0 == GetClassName(hBand, szClassName, STRING_LEN))
+	if (0 == GetClassNameW(hBand, szClassName, STRING_LEN))
 	{
 		return __HRESULT_FROM_WIN32(GetLastError());
 	}
 
 	// Note: per MSDN, string returned by GetClassName is always null terminated (but may be truncated)
-	if (wcscmp(szClassName, TOOLBARCLASSNAME) == 0)
+	if (wcscmp(szClassName, TOOLBARCLASSNAMEW) == 0)
 	{
 		bIsToolbar = TRUE;
 	}

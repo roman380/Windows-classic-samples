@@ -484,7 +484,7 @@ void MainWindow::OnVolumeSliderNotify(const NMSLIDER_INFO *pInfo)
 
 void MainWindow::OnFileOpen()
 {
-	OPENFILENAME ofn;
+	OPENFILENAMEW ofn;
 	ZeroMemory(&ofn, sizeof(ofn));
 
 	WCHAR szFileName[MAX_PATH];
@@ -500,7 +500,7 @@ void MainWindow::OnFileOpen()
 
 	HRESULT hr;
 
-	if (GetOpenFileName(&ofn))
+	if (GetOpenFileNameW(&ofn))
 	{
 		hr = m_pPlayer->OpenFile(szFileName);
 

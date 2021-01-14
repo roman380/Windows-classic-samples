@@ -17,7 +17,7 @@ inline HRESULT GetFilenameByCLSIDString(const WCHAR *szGUID, WCHAR *szFile, size
 	int rc=0;
 
 	// Create key name for reading filename from registry
-	hr = StringCchPrintf(
+	hr = StringCchPrintfW(
 		szKey, 
 		STR_LEN, 
 		L"Software\\Classes\\CLSID\\%s\\InprocServer32\0",
@@ -31,7 +31,7 @@ inline HRESULT GetFilenameByCLSIDString(const WCHAR *szGUID, WCHAR *szFile, size
         BYTE szFilename[MAX_PATH];
 
         // Open the CLSID key that contains information about the filter
-        rc = RegOpenKey(HKEY_LOCAL_MACHINE, szKey, &hkeyFilter);
+        rc = RegOpenKeyW(HKEY_LOCAL_MACHINE, szKey, &hkeyFilter);
         if (rc == ERROR_SUCCESS)
         {
             rc = RegQueryValueEx(hkeyFilter, NULL,  // Read (Default) value
@@ -39,7 +39,7 @@ inline HRESULT GetFilenameByCLSIDString(const WCHAR *szGUID, WCHAR *szFile, size
            
             if (rc == ERROR_SUCCESS)
 			{
-                hr = StringCchPrintf(szFile, cch, L"%s\0", szFilename);
+                hr = StringCchPrintfW(szFile, cch, L"%s\0", szFilename);
 			}
 			else
 			{
