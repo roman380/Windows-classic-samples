@@ -304,19 +304,20 @@ _DllEntryPoint(
         DisableThreadLibraryCalls(hInstance);
         DbgInitialise(hInstance);
 
-    	{
-    	    // The platform identifier is used to work out whether
-    	    // full unicode support is available or not.  Hence the
-    	    // default will be the lowest common denominator - i.e. N/A
-                g_amPlatform = VER_PLATFORM_WIN32_WINDOWS; // win95 assumed in case GetVersionEx fails
-    
-                g_osInfo.dwOSVersionInfoSize = sizeof(g_osInfo);
-                if (GetVersionEx(&g_osInfo)) {
-            	g_amPlatform = g_osInfo.dwPlatformId;
-    	    } else {
-    		DbgLog((LOG_ERROR, 1, TEXT("Failed to get the OS platform, assuming Win95")));
-    	    }
-    	}
+        // NOTE: This is way out of date and just annoys compiler; just assuming VER_PLATFORM_WIN32_NT
+		//{
+		//	// The platform identifier is used to work out whether
+		//	// full unicode support is available or not.  Hence the
+		//	// default will be the lowest common denominator - i.e. N/A
+		//	g_amPlatform = VER_PLATFORM_WIN32_WINDOWS; // win95 assumed in case GetVersionEx fails
+
+		//	g_osInfo.dwOSVersionInfoSize = sizeof(g_osInfo);
+		//	if(GetVersionEx(&g_osInfo)) {
+		//		g_amPlatform = g_osInfo.dwPlatformId;
+		//	} else {
+		//		DbgLog((LOG_ERROR, 1, TEXT("Failed to get the OS platform, assuming Win95")));
+		//	}
+		//}
 
         g_hInst = hInstance;
         DllInitClasses(TRUE);

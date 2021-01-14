@@ -727,43 +727,44 @@ the Platform SDK for more information.
 ******************************************************************************/
 MMRESULT CompatibleTimeSetEvent( UINT uDelay, UINT uResolution, __in LPTIMECALLBACK lpTimeProc, DWORD_PTR dwUser, UINT fuEvent )
 {
-    #if WINVER >= 0x0501
-    {
-        static bool fCheckedVersion = false;
-        static bool fTimeKillSynchronousFlagAvailable = false; 
+    // WARN: Stripping outdated OS version check
+    //#if WINVER >= 0x0501
+    //{
+    //    static bool fCheckedVersion = false;
+    //    static bool fTimeKillSynchronousFlagAvailable = false; 
 
-        if( !fCheckedVersion ) {
-            fTimeKillSynchronousFlagAvailable = TimeKillSynchronousFlagAvailable();
-            fCheckedVersion = true;
-        }
+    //    if( !fCheckedVersion ) {
+    //        fTimeKillSynchronousFlagAvailable = TimeKillSynchronousFlagAvailable();
+    //        fCheckedVersion = true;
+    //    }
 
-        if( fTimeKillSynchronousFlagAvailable ) {
+    //    if( fTimeKillSynchronousFlagAvailable ) {
             fuEvent = fuEvent | TIME_KILL_SYNCHRONOUS;
-        }
-    }
-    #endif // WINVER >= 0x0501
+    //    }
+    //}
+    //#endif // WINVER >= 0x0501
 
     return timeSetEvent( uDelay, uResolution, lpTimeProc, dwUser, fuEvent );
 }
 
-bool TimeKillSynchronousFlagAvailable( void )
-{
-    OSVERSIONINFO osverinfo;
-
-    osverinfo.dwOSVersionInfoSize = sizeof(osverinfo);
-
-    if( GetVersionEx( &osverinfo ) ) {
-        
-        // Windows XP's major version is 5 and its' minor version is 1.
-        // timeSetEvent() started supporting the TIME_KILL_SYNCHRONOUS flag
-        // in Windows XP.
-        if( (osverinfo.dwMajorVersion > 5) || 
-            ( (osverinfo.dwMajorVersion == 5) && (osverinfo.dwMinorVersion >= 1) ) ) {
-            return true;
-        }
-    }
-
-    return false;
-}
+//bool TimeKillSynchronousFlagAvailable( void )
+//{
+//    OSVERSIONINFO osverinfo;
+//
+//    osverinfo.dwOSVersionInfoSize = sizeof(osverinfo);
+//
+//    if( GetVersionEx( &osverinfo ) ) {
+//        
+//        // Windows XP's major version is 5 and its' minor version is 1.
+//        // timeSetEvent() started supporting the TIME_KILL_SYNCHRONOUS flag
+//        // in Windows XP.
+//        if( (osverinfo.dwMajorVersion > 5) || 
+//            ( (osverinfo.dwMajorVersion == 5) && (osverinfo.dwMinorVersion >= 1) ) ) {
+//            return true;
+//        }
+//    }
+//
+//    return false;
+//}
 
 

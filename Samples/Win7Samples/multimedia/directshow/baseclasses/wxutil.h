@@ -517,7 +517,7 @@ public:
 };
 
 MMRESULT CompatibleTimeSetEvent( UINT uDelay, UINT uResolution, __in LPTIMECALLBACK lpTimeProc, DWORD_PTR dwUser, UINT fuEvent );
-bool TimeKillSynchronousFlagAvailable( void );
+//bool TimeKillSynchronousFlagAvailable( void );
 
 //  Helper to replace lstrcpmi
 __inline int lstrcmpiLocaleIndependentW(LPCWSTR lpsz1, LPCWSTR lpsz2)

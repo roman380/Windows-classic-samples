@@ -129,8 +129,8 @@ extern HINSTANCE g_hInst;
 
 /* On DLL load remember which platform we are running on */
 
-extern DWORD g_amPlatform;
-extern OSVERSIONINFO g_osInfo;     // Filled in by GetVersionEx
+//extern DWORD g_amPlatform;
+//extern OSVERSIONINFO g_osInfo;     // Filled in by GetVersionEx
 
 /* Version of IUnknown that is renamed to allow a class to support both
    non delegating and delegating IUnknowns in the same COM object */
