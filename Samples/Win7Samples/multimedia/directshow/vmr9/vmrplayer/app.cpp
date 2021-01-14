@@ -311,10 +311,10 @@ InitApplication(
     wc.lpszMenuName  = MAKEINTRESOURCE(IDR_MAIN_MENU);
     wc.lpszClassName = szClassName;
 
-    OSVERSIONINFO OSVer;
-    OSVer.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    BOOL bRet = GetVersionEx((LPOSVERSIONINFO) &OSVer);
-    assert(bRet);
+    //OSVERSIONINFO OSVer;
+    //OSVer.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    //BOOL bRet = GetVersionEx((LPOSVERSIONINFO) &OSVer);
+    //assert(bRet);
 
     /*
     ** Register the window class and return success/failure code.
