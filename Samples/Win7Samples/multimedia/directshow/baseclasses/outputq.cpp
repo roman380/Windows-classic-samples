@@ -206,7 +206,7 @@ DWORD COutputQueue::ThreadProc()
         BOOL          bWait = FALSE;
         IMediaSample *pSample;
         LONG          lNumberToSend; // Local copy
-        NewSegmentPacket* ppacket;
+        NewSegmentPacket* ppacket = nullptr;
 
         //
         //  Get a batch of samples and send it if possible
@@ -364,8 +364,10 @@ DWORD COutputQueue::ThreadProc()
         }
 
         if (pSample == NEW_SEGMENT) {
+            ASSERT(ppacket);
             m_pPin->NewSegment(ppacket->tStart, ppacket->tStop, ppacket->dRate);
             delete ppacket;
+            ppacket = nullptr;
         }
     }
 }
