@@ -707,7 +707,7 @@ CBaseFilter::FindPin(
             break;
         }
 
-        if (0 == lstrcmpW(pPin->Name(), Id)) {
+        if (0 == wcscmp(pPin->Name(), Id)) {
             //  Found one that matches
             //
             //  AddRef() and return it

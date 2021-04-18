@@ -641,7 +641,7 @@ STDMETHODIMP CBaseRenderer::FindPin(LPCWSTR Id, __deref_out IPin **ppPin)
 {
     CheckPointer(ppPin,E_POINTER);
 
-    if (0==lstrcmpW(Id,L"In")) {
+    if (0==wcscmp(Id,L"In")) {
         *ppPin = GetPin(0);
         if (*ppPin) {
             (*ppPin)->AddRef();

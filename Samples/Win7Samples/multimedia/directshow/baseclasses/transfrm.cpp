@@ -145,9 +145,9 @@ STDMETHODIMP CTransformFilter::FindPin(LPCWSTR Id, __deref_out IPin **ppPin)
     CheckPointer(ppPin,E_POINTER);
     ValidateReadWritePtr(ppPin,sizeof(IPin *));
 
-    if (0==lstrcmpW(Id,L"In")) {
+    if (0==wcscmp(Id,L"In")) {
         *ppPin = GetPin(0);
-    } else if (0==lstrcmpW(Id,L"Out")) {
+    } else if (0==wcscmp(Id,L"Out")) {
         *ppPin = GetPin(1);
     } else {
         *ppPin = NULL;
