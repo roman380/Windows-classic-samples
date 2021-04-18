@@ -24,7 +24,9 @@
 #endif // DEBUG
 
 #include <tchar.h>
-#include <strsafe.h>
+#if !defined(UNICODE)
+    #include <strsafe.h>
+#endif
 
 #ifdef DEBUG
 static void DisplayBITMAPINFO(const BITMAPINFOHEADER* pbmi);
@@ -244,18 +246,18 @@ HRESULT  DbgUniqueProcessName(LPCTSTR inName, LPTSTR outName)
     if (dotPos < 0) 
     {
         //no extension in the input, appending process id to the input
-        hr = StringCchPrintf(outName, MAX_PATH, TEXT("%s_%d"), inName, dwProcessId);
+        hr = _stprintf_s(outName, MAX_PATH, TEXT("%s_%d"), inName, dwProcessId);
     }
     else
     {
         TCHAR pathAndBasename[MAX_PATH] = {0};
         
         //there's an extension  - zero-terminate the path and basename first by copying
-        hr = StringCchCopyN(pathAndBasename, MAX_PATH, inName, (size_t)dotPos);
+        hr = _tcsncpy_s(pathAndBasename, MAX_PATH, inName, (size_t)dotPos);
 
         //re-combine path, basename and extension with processId appended to a basename
         if (SUCCEEDED(hr))
-            hr = StringCchPrintf(outName, MAX_PATH, TEXT("%s_%d%s"), pathAndBasename, dwProcessId, inName + dotPos);
+            hr = _stprintf_s(outName, MAX_PATH, TEXT("%s_%d%s"), pathAndBasename, dwProcessId, inName + dotPos);
     }
 
     return hr;
@@ -361,7 +363,7 @@ void WINAPI DbgInitGlobalSettings(bool fTakeMax)
     HKEY hGlobalKey;            // Global override key
 
     /* Construct the global base key name */
-    (void)StringCchPrintf(szInfo,NUMELMS(szInfo),TEXT("%s\\%s"),pBaseKey,pGlobalKey);
+    _stprintf_s(szInfo,NUMELMS(szInfo),TEXT("%s\\%s"),pBaseKey,pGlobalKey);
 
     /* Create or open the key for this module */
     lReturn = RegCreateKeyEx(HKEY_LOCAL_MACHINE,   // Handle of an open key
@@ -408,7 +410,7 @@ void WINAPI DbgInitModuleSettings(bool fTakeMax)
     HKEY hModuleKey;            // Module key handle
 
     /* Construct the base key name */
-    (void)StringCchPrintf(szInfo,NUMELMS(szInfo),TEXT("%s\\%s"),pBaseKey,m_ModuleName);
+    _stprintf_s(szInfo,NUMELMS(szInfo),TEXT("%s\\%s"),pBaseKey,m_ModuleName);
 
     /* Create or open the key for this module */
     lReturn = RegCreateKeyEx(HKEY_LOCAL_MACHINE,   // Handle of an open key
@@ -457,7 +459,7 @@ void WINAPI DbgInitModuleName()
     } else {
         pName++;
     }
-    (void)StringCchCopy(m_ModuleName,NUMELMS(m_ModuleName), pName);
+    _tcscpy_s(m_ModuleName,NUMELMS(m_ModuleName), pName);
 }
 
 struct MsgBoxMsg
@@ -537,7 +539,7 @@ void WINAPI DbgAssert(LPCTSTR pCondition,LPCTSTR pFileName,INT iLine)
 
         TCHAR szInfo[iDEBUGINFO];
 
-        (void)StringCchPrintf(szInfo, NUMELMS(szInfo),TEXT("%s \nAt line %d of %s\nContinue? (Cancel to debug)"),
+        _stprintf_s(szInfo, NUMELMS(szInfo),TEXT("%s \nAt line %d of %s\nContinue? (Cancel to debug)"),
                  pCondition, iLine, pFileName);
 
         INT MsgId = MessageBoxOtherThread(NULL,szInfo,TEXT("ASSERT Failed"),
@@ -575,7 +577,7 @@ void WINAPI DbgBreakPoint(LPCTSTR pCondition,LPCTSTR pFileName,INT iLine)
     {
         TCHAR szInfo[iDEBUGINFO];
 
-        (void)StringCchPrintf(szInfo, NUMELMS(szInfo),TEXT("%s \nAt line %d of %s\nContinue? (Cancel to debug)"),
+        _stprintf_s(szInfo, NUMELMS(szInfo),TEXT("%s \nAt line %d of %s\nContinue? (Cancel to debug)"),
                  pCondition, iLine, pFileName);
 
         INT MsgId = MessageBoxOtherThread(NULL,szInfo,TEXT("Hard coded break point"),
@@ -615,7 +617,7 @@ void WINAPI DbgBreakPoint(LPCTSTR pFileName,INT iLine,__format_string LPCTSTR sz
     va_list va;
     va_start( va, szFormatString );
 
-    HRESULT hr = StringCchVPrintf( szBreakPointMessage, NUMELMS(szBreakPointMessage), szFormatString, va );
+    HRESULT hr = _vstprintf_s( szBreakPointMessage, NUMELMS(szBreakPointMessage), szFormatString, va );
 
     va_end(va);
 
@@ -724,7 +726,7 @@ void WINAPI DbgLogInfo(DWORD Type,DWORD Level,__format_string LPCSTR pFormat,...
     va_list va;
     va_start(va, pFormat);
 
-    (void)StringCchPrintf(szInfo, NUMELMS(szInfo),
+    _stprintf_s(szInfo, NUMELMS(szInfo),
              TEXT("%s(tid %x) %8d : "),
              m_ModuleName,
              GetCurrentThreadId(), timeGetTime() - dwTimeOffset);
@@ -732,8 +734,8 @@ void WINAPI DbgLogInfo(DWORD Type,DWORD Level,__format_string LPCSTR pFormat,...
     CHAR szInfoA[2000];
     WideCharToMultiByte(CP_ACP, 0, szInfo, -1, szInfoA, NUMELMS(szInfoA), 0, 0);
 
-    (void)StringCchVPrintfA(szInfoA + lstrlenA(szInfoA), NUMELMS(szInfoA) - lstrlenA(szInfoA), pFormat, va);
-    (void)StringCchCatA(szInfoA, NUMELMS(szInfoA), "\r\n");
+    sprintf_s(szInfoA + lstrlenA(szInfoA), NUMELMS(szInfoA) - lstrlenA(szInfoA), pFormat, va);
+    strcat_s(szInfoA, NUMELMS(szInfoA), "\r\n");
 
     WCHAR wszOutString[2000];
     MultiByteToWideChar(CP_ACP, 0, szInfoA, -1, wszOutString, NUMELMS(wszOutString));
@@ -753,7 +755,7 @@ void WINAPI DbgAssert(LPCSTR pCondition,LPCSTR pFileName,INT iLine)
 
         TCHAR szInfo[iDEBUGINFO];
 
-        (void)StringCchPrintf(szInfo, NUMELMS(szInfo), TEXT("%hs \nAt line %d of %hs\nContinue? (Cancel to debug)"),
+        _stprintf_s(szInfo, NUMELMS(szInfo), TEXT("%hs \nAt line %d of %hs\nContinue? (Cancel to debug)"),
                  pCondition, iLine, pFileName);
 
         INT MsgId = MessageBoxOtherThread(NULL,szInfo,TEXT("ASSERT Failed"),
@@ -791,7 +793,7 @@ void WINAPI DbgBreakPoint(LPCSTR pCondition,LPCSTR pFileName,INT iLine)
     {
         TCHAR szInfo[iDEBUGINFO];
 
-        (void)StringCchPrintf(szInfo, NUMELMS(szInfo),TEXT("%hs \nAt line %d of %hs\nContinue? (Cancel to debug)"),
+        _stprintf_s(szInfo, NUMELMS(szInfo),TEXT("%hs \nAt line %d of %hs\nContinue? (Cancel to debug)"),
                  pCondition, iLine, pFileName);
 
         INT MsgId = MessageBoxOtherThread(NULL,szInfo,TEXT("Hard coded break point"),
@@ -852,13 +854,13 @@ void WINAPI DbgLogInfo(DWORD Type,DWORD Level,LPCTSTR pFormat,...)
     va_list va;
     va_start(va, pFormat);
 
-    (void)StringCchPrintf(szInfo, NUMELMS(szInfo),
+    _stprintf_s(szInfo, NUMELMS(szInfo),
              TEXT("%s(tid %x) %8d : "),
              m_ModuleName,
              GetCurrentThreadId(), timeGetTime() - dwTimeOffset);
 
-    (void)StringCchVPrintf(szInfo + lstrlen(szInfo), NUMELMS(szInfo) - lstrlen(szInfo), pFormat, va);
-    (void)StringCchCat(szInfo, NUMELMS(szInfo), TEXT("\r\n"));
+    _stprintf_s(szInfo + lstrlen(szInfo), NUMELMS(szInfo) - lstrlen(szInfo), pFormat, va);
+    _tcscat_s(szInfo, NUMELMS(szInfo), TEXT("\r\n"));
     DbgOutString(szInfo);
 
     va_end(va);
@@ -1017,15 +1019,15 @@ void WINAPI DbgDumpObjectRegister()
 
     while (pObject) {
         if(pObject->m_wszName) {
-            (void)StringCchPrintf(szInfo,NUMELMS(szInfo),TEXT("%5d (%p) %30ls"),pObject->m_dwCookie, &pObject, pObject->m_wszName);
+            _stprintf_s(szInfo,NUMELMS(szInfo),TEXT("%5d (%p) %30ls"),pObject->m_dwCookie, &pObject, pObject->m_wszName);
         } else {
-            (void)StringCchPrintf(szInfo,NUMELMS(szInfo),TEXT("%5d (%p) %30hs"),pObject->m_dwCookie, &pObject, pObject->m_szName);
+            _stprintf_s(szInfo,NUMELMS(szInfo),TEXT("%5d (%p) %30hs"),pObject->m_dwCookie, &pObject, pObject->m_szName);
         }
         DbgLog((LOG_MEMORY,2,szInfo));
         pObject = pObject->m_pNext;
     }
 
-    (void)StringCchPrintf(szInfo,NUMELMS(szInfo),TEXT("Total object count %5d"),m_dwObjectCount);
+    _stprintf_s(szInfo,NUMELMS(szInfo),TEXT("Total object count %5d"),m_dwObjectCount);
     DbgLog((LOG_MEMORY,2,TEXT("")));
     DbgLog((LOG_MEMORY,1,szInfo));
     LeaveCriticalSection(&m_CSDebug);
@@ -1118,12 +1120,12 @@ CDisp::CDisp(LONGLONG ll, int Format)
 		li.QuadPart /= 10;
 		temp[--pos] = (TCHAR) digit+L'0';
 	    } while (li.QuadPart);
-	    (void)StringCchCopy(m_String, NUMELMS(m_String), temp+pos);
+	    _tcscpy_s(m_String, NUMELMS(m_String), temp+pos);
 	    break;
 	}
 	case CDISP_HEX:
 	default:
-	    (void)StringCchPrintf(m_String, NUMELMS(m_String), TEXT("0x%X%8.8X"), li.HighPart, li.LowPart);
+	    _stprintf_s(m_String, NUMELMS(m_String), TEXT("0x%X%8.8X"), li.HighPart, li.LowPart);
     }
 };
 
@@ -1145,24 +1147,24 @@ CDisp::CDisp(CRefTime llTime)
     LONGLONG llDiv;
     if (llTime < 0) {
         llTime = -llTime;
-        (void)StringCchCopy(m_String, NUMELMS(m_String), TEXT("-"));
+        _tcscpy_s(m_String, NUMELMS(m_String), TEXT("-"));
     }
     llDiv = (LONGLONG)24 * 3600 * 10000000;
     if (llTime >= llDiv) {
-        (void)StringCchPrintf(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d days "), (LONG)(llTime / llDiv));
+        _stprintf_s(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d days "), (LONG)(llTime / llDiv));
         llTime = llTime % llDiv;
     }
     llDiv = (LONGLONG)3600 * 10000000;
     if (llTime >= llDiv) {
-        (void)StringCchPrintf(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d hrs "), (LONG)(llTime / llDiv));
+        _stprintf_s(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d hrs "), (LONG)(llTime / llDiv));
         llTime = llTime % llDiv;
     }
     llDiv = (LONGLONG)60 * 10000000;
     if (llTime >= llDiv) {
-        (void)StringCchPrintf(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d mins "), (LONG)(llTime / llDiv));
+        _stprintf_s(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d mins "), (LONG)(llTime / llDiv));
         llTime = llTime % llDiv;
     }
-    (void)StringCchPrintf(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d.%3.3d sec"),
+    _stprintf_s(m_String + lstrlen(m_String), NUMELMS(m_String) - lstrlen(m_String), TEXT("%d.%3.3d sec"),
              (LONG)llTime / 10000000,
              (LONG)((llTime % 10000000) / 10000));
 };
@@ -1185,10 +1187,10 @@ CDisp::CDisp(IPin *pPin)
        WideCharToMultiByte(GetACP(), 0, pi.achName, lstrlenW(pi.achName) + 1,
                            str, MAX_PIN_NAME, NULL, NULL);
       #else
-       (void)StringCchCopy(str, NUMELMS(str), pi.achName);
+       _tcscpy_s(str, NUMELMS(str), pi.achName);
       #endif
     } else {
-       (void)StringCchCopy(str, NUMELMS(str), TEXT("NULL IPin"));
+       _tcscpy_s(str, NUMELMS(str), TEXT("NULL IPin"));
     }
 
     m_pString = (PTCHAR) new TCHAR[lstrlen(str)+64];
@@ -1196,7 +1198,7 @@ CDisp::CDisp(IPin *pPin)
 	return;
     }
 
-    (void)StringCchPrintf(m_pString, lstrlen(str) + 64, TEXT("%hs(%s)"), GuidNames[clsid], str);
+    _stprintf_s(m_pString, lstrlen(str) + 64, TEXT("%hs(%s)"), GuidNames[clsid], str);
 }
 
 /*  Display filter or pin */
@@ -1218,7 +1220,7 @@ CDisp::CDisp(IUnknown *pUnk)
             if(m_pString)
             {
 #ifdef UNICODE
-                (void)StringCchCopy(m_pString, len, fi.achName);
+                _tcscpy_s(m_pString, len, fi.achName);
 #else
                 (void)StringCchPrintf(m_pString, len, "%S", fi.achName);
 #endif
@@ -1254,7 +1256,7 @@ CDispBasic::~CDispBasic()
 
 CDisp::CDisp(double d)
 {
-    (void)StringCchPrintf(m_String, NUMELMS(m_String), TEXT("%d.%03d"), (int) d, (int) ((d - (int) d) * 1000));
+    _stprintf_s(m_String, NUMELMS(m_String), TEXT("%d.%03d"), (int) d, (int) ((d - (int) d) * 1000));
 }
 
 

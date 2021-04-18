@@ -9,9 +9,12 @@
 
 
 #include <streams.h>
-#define STRSAFE_NO_DEPRECATE
-#include <strsafe.h>
-
+#if defined(UNICODE)
+    #include <wchar.h>
+#else
+    #define STRSAFE_NO_DEPRECATE
+    #include <strsafe.h>
+#endif
 
 // --- CAMEvent -----------------------
 CAMEvent::CAMEvent(BOOL fManualReset, __inout_opt HRESULT *phr)
@@ -359,9 +362,7 @@ CMsgThread::GetThreadMsg(__out CMsg *msg)
 void WINAPI IntToWstr(int i, __out_ecount(12) LPWSTR wstr)
 {
 #ifdef UNICODE
-    if (FAILED(StringCchPrintf(wstr, 12, L"%d", i))) {
-        wstr[0] = 0;
-    }
+    swprintf_s(wstr, 12, L"%d", i);
 #else
     TCHAR temp[12];
     if (FAILED(StringCchPrintf(temp, NUMELMS(temp), "%d", i))) {
@@ -573,11 +574,8 @@ STDAPI AMGetWideString(LPCWSTR psz, __deref_out LPWSTR *ppszReturn)
     CheckPointer(ppszReturn, E_POINTER);
     ValidateReadWritePtr(ppszReturn, sizeof(LPWSTR));
     *ppszReturn = NULL;
-    size_t nameLen;
-    HRESULT hr = StringCbLengthW(psz, 100000, &nameLen);
-    if (FAILED(hr)) {
-        return hr;
-    }
+    ASSERT(psz);
+    const size_t nameLen = wcslen(psz);
     *ppszReturn = (LPWSTR)CoTaskMemAlloc(nameLen + sizeof(WCHAR));
     if (*ppszReturn == NULL) {
        return E_OUTOFMEMORY;

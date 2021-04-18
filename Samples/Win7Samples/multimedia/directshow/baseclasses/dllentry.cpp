@@ -12,15 +12,17 @@
 #include <initguid.h>
 
 #ifdef DEBUG
-#ifdef UNICODE
-#ifndef _UNICODE
-#define _UNICODE
-#endif // _UNICODE
-#endif // UNICODE
+    #ifdef UNICODE
+        #ifndef _UNICODE
+            #define _UNICODE
+        #endif // _UNICODE
+        #endif // UNICODE
+#endif // DEBUG
 
 #include <tchar.h>
-#endif // DEBUG
-#include <strsafe.h>
+#if !defined(UNICODE)
+    #include <strsafe.h>
+#endif
 
 extern CFactoryTemplate g_Templates[];
 extern int g_cTemplates;
@@ -343,10 +345,10 @@ _DllEntryPoint(
                 pName++;
             }
 
-            (void)StringCchPrintf(szInfo, NUMELMS(szInfo), TEXT("Executable: %s  Pid %x  Tid %x. "),
+            _stprintf_s(szInfo, NUMELMS(szInfo), TEXT("Executable: %s  Pid %x  Tid %x. "),
 			    pName, GetCurrentProcessId(), GetCurrentThreadId());
 
-            (void)StringCchPrintf(szInfo+lstrlen(szInfo), NUMELMS(szInfo) - lstrlen(szInfo), TEXT("Module %s, %d objects left active!"),
+            _stprintf_s(szInfo+lstrlen(szInfo), NUMELMS(szInfo) - lstrlen(szInfo), TEXT("Module %s, %d objects left active!"),
                      m_ModuleName, CBaseObject::ObjectsActive());
             DbgAssert(szInfo, TEXT(__FILE__),__LINE__);
 

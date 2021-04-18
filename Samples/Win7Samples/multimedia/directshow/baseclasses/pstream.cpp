@@ -8,7 +8,11 @@
 
 
 #include <streams.h>
-#include <strsafe.h>
+#if defined(UNICODE)
+    #include <wchar.h>
+#else
+    #include <strsafe.h>
+#endif
 
 #ifdef PERF
 #include <measure.h>
@@ -129,7 +133,7 @@ STDMETHODIMP CPersistStream::Save(LPSTREAM pStm, BOOL fClearDirty)
 STDAPI WriteInt(IStream *pIStream, int n)
 {
     WCHAR Buff[13];  // Allows for trailing null that we don't write
-    (void)StringCchPrintfW(Buff, NUMELMS(Buff),L"%011d ",n);
+    swprintf_s(Buff, NUMELMS(Buff),L"%011d ",n);
     return pIStream->Write(&(Buff[0]), 12*sizeof(WCHAR), NULL);
 } // WriteInt
 

@@ -28,7 +28,9 @@
 //=====================================================================
 
 #include <streams.h>
-#include <strsafe.h>
+#if !defined(UNICODE)
+    #include <strsafe.h>
+#endif
 
 #ifdef DXMPERF
 #include "dxmperf.h"
@@ -727,7 +729,7 @@ CBaseFilter::QueryFilterInfo(__out FILTER_INFO * pInfo)
     ValidateReadWritePtr(pInfo,sizeof(FILTER_INFO));
 
     if (m_pName) {
-        (void)StringCchCopyW(pInfo->achName, NUMELMS(pInfo->achName), m_pName);
+        wcscpy_s(pInfo->achName, NUMELMS(pInfo->achName), m_pName);
     } else {
         pInfo->achName[0] = L'\0';
     }
@@ -771,14 +773,10 @@ CBaseFilter::JoinFilterGraph(
     }
 
     if (pName) {
-        size_t namelen;
-        HRESULT hr = StringCchLengthW(pName, STRSAFE_MAX_CCH, &namelen);
-        if (FAILED(hr)) {
-            return hr;
-        }
+        const size_t namelen = wcslen(pName);
         m_pName = new WCHAR[namelen + 1];
         if (m_pName) {
-            (void)StringCchCopyW(m_pName, namelen + 1, pName);
+            wcscpy_s(m_pName, namelen + 1, pName);
         } else {
             return E_OUTOFMEMORY;
         }
@@ -1514,13 +1512,10 @@ CBasePin::CBasePin(__in_opt LPCTSTR pObjectName,
     ASSERT(pLock != NULL);
 
     if (pName) {
-        size_t cchName;
-        HRESULT hr = StringCchLengthW(pName, STRSAFE_MAX_CCH, &cchName);
-        if (SUCCEEDED(hr)) {
-            m_pName = new WCHAR[cchName + 1];
-            if (m_pName) {
-                (void)StringCchCopyW(m_pName, cchName + 1, pName);
-            }
+        const size_t cchName = wcslen(pName);
+        m_pName = new WCHAR[cchName + 1];
+        if (m_pName) {
+            wcscpy_s(m_pName, cchName + 1, pName);
         }
     }
 
@@ -1566,13 +1561,10 @@ CBasePin::CBasePin(__in_opt LPCSTR pObjectName,
     ASSERT(pLock != NULL);
 
     if (pName) {
-        size_t cchName;
-        HRESULT hr = StringCchLengthW(pName, STRSAFE_MAX_CCH, &cchName);
-        if (SUCCEEDED(hr)) {
-            m_pName = new WCHAR[cchName + 1];
-            if (m_pName) {
-                (void)StringCchCopyW(m_pName, cchName + 1, pName);
-            }
+        const size_t cchName = wcslen(pName);
+        m_pName = new WCHAR[cchName + 1];
+        if (m_pName) {
+            wcscpy_s(m_pName, cchName + 1, pName);
         }
     }
 
@@ -1653,13 +1645,13 @@ CBasePin::DisplayPinInfo(IPin *pReceivePin)
         PIN_INFO ReceivePinInfo;
 
         if (FAILED(QueryPinInfo(&ConnectPinInfo))) {
-            StringCchCopyW(ConnectPinInfo.achName, sizeof(ConnectPinInfo.achName)/sizeof(WCHAR), L"Bad Pin");
+            wcscpy_s(ConnectPinInfo.achName, sizeof(ConnectPinInfo.achName)/sizeof(WCHAR), L"Bad Pin");
         } else {
             QueryPinInfoReleaseFilter(ConnectPinInfo);
         }
 
         if (FAILED(pReceivePin->QueryPinInfo(&ReceivePinInfo))) {
-            StringCchCopyW(ReceivePinInfo.achName, sizeof(ReceivePinInfo.achName)/sizeof(WCHAR), L"Bad Pin");
+            wcscpy_s(ReceivePinInfo.achName, sizeof(ReceivePinInfo.achName)/sizeof(WCHAR), L"Bad Pin");
         } else {
             QueryPinInfoReleaseFilter(ReceivePinInfo);
         }
@@ -2244,7 +2236,7 @@ CBasePin::QueryPinInfo(
     }
 
     if (m_pName) {
-        (void)StringCchCopyW(pInfo->achName, NUMELMS(pInfo->achName), m_pName);
+        wcscpy_s(pInfo->achName, NUMELMS(pInfo->achName), m_pName);
     } else {
         pInfo->achName[0] = L'\0';
     }

@@ -10,7 +10,10 @@
 #include <streams.h>
 #include <limits.h>
 #include <dvdmedia.h>
-#include <strsafe.h>
+#include <tchar.h>
+#if !defined(UNICODE)
+    #include <strsafe.h>
+#endif
 #include <checkbmi.h>
 
 static UINT MsgDestroy;
@@ -964,7 +967,7 @@ void CDrawImage::DisplaySampleTimes(IMediaSample *pSample)
 
     // Format the sample time stamps
 
-    (void)StringCchPrintf(szTimes,NUMELMS(szTimes),TEXT("%08d : %08d"),
+    _stprintf_s(szTimes,NUMELMS(szTimes),TEXT("%08d : %08d"),
              m_StartSample.Millisecs(),
              m_EndSample.Millisecs());
 

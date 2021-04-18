@@ -10,11 +10,13 @@
 
 #include <streams.h>
 #include <windows.h>
-#include <tchar.h>
 #include <winperf.h>
 #include <wmistr.h>
 #include <evntrace.h>
-#include <strsafe.h>
+#include <tchar.h>
+#if !defined(UNICODE)
+    #include <strsafe.h>
+#endif
 #include "perflog.h"
 
 //
@@ -148,7 +150,7 @@ PerflogReadModuleLevel(
     }
 
     /* Construct the base key name */
-    (void)StringCchPrintf(szInfo,NUMELMS(szInfo),TEXT("SOFTWARE\\Debug\\%s"),pName);
+    _stprintf_s(szInfo,NUMELMS(szInfo),TEXT("SOFTWARE\\Debug\\%s"),pName);
 
     /* Open the key for this module */
     lReturn =
