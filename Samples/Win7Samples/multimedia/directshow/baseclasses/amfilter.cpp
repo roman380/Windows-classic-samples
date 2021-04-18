@@ -4194,7 +4194,7 @@ HRESULT CDynamicOutputPin::StartUsingOutputPin(void)
         HANDLE ahWaitEvents[] = { m_hUnblockOutputPinEvent, m_hStopEvent };
         DWORD dwNumWaitEvents = sizeof(ahWaitEvents)/sizeof(HANDLE);
 
-        DWORD dwReturnValue = ::WaitForMultipleObjects( dwNumWaitEvents, ahWaitEvents, FALSE, INFINITE );
+        DWORD dwReturnValue = ::WaitForMultipleObjectsEx( dwNumWaitEvents, ahWaitEvents, FALSE, INFINITE, FALSE );
 
         m_BlockStateLock.Lock();
 
@@ -4574,7 +4574,7 @@ CBaseAllocator::CBaseAllocator(__in_opt LPCTSTR pName,
 #endif // DXMPERF
 
     if (bEvent) {
-        m_hSem = CreateSemaphore(NULL, 0, 0x7FFFFFFF, NULL);
+        m_hSem = CreateSemaphoreEx(NULL, 0, 0x7FFFFFFF, NULL, 0, SEMAPHORE_ALL_ACCESS);
         if (m_hSem == NULL) {
             *phr = E_OUTOFMEMORY;
             return;
@@ -4607,7 +4607,7 @@ CBaseAllocator::CBaseAllocator(__in_opt LPCSTR pName,
 #endif // DXMPERF
 
     if (bEvent) {
-        m_hSem = CreateSemaphore(NULL, 0, 0x7FFFFFFF, NULL);
+        m_hSem = CreateSemaphoreEx(NULL, 0, 0x7FFFFFFF, NULL, 0, SEMAPHORE_ALL_ACCESS);
         if (m_hSem == NULL) {
             *phr = E_OUTOFMEMORY;
             return;

@@ -619,7 +619,7 @@ HRESULT CLoadDirectDraw::LoadDirectDraw(__in LPSTR szDevice)
     if(!m_hDirectDraw)
     {
         UINT ErrorMode = SetErrorMode(SEM_NOOPENFILEERRORBOX);
-        m_hDirectDraw = LoadLibrary(TEXT("DDRAW.DLL"));
+        m_hDirectDraw = LoadLibraryEx(TEXT("DDRAW.DLL"), NULL, 0);
         SetErrorMode(ErrorMode);
 
         if (m_hDirectDraw == NULL) {

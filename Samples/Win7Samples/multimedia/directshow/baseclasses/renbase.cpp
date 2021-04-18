@@ -260,7 +260,7 @@ HRESULT CBaseRenderer::WaitForRenderTime()
 
     OnWaitStart();
     while (Result == WAIT_TIMEOUT) {
-        Result = WaitForMultipleObjects(2,WaitObjects,FALSE,RENDER_TIMEOUT);
+        Result = WaitForMultipleObjectsEx(2,WaitObjects,FALSE,RENDER_TIMEOUT,FALSE);
 
 #ifdef DEBUG
         if (Result == WAIT_TIMEOUT) DisplayRendererState();

@@ -104,7 +104,7 @@ COutputQueue::COutputQueue(
 
     if (bQueue) {
         DbgLog((LOG_TRACE, 2, TEXT("Creating thread for output pin")));
-        m_hSem = CreateSemaphore(NULL, 0, 0x7FFFFFFF, NULL);
+        m_hSem = CreateSemaphoreEx(NULL, 0, 0x7FFFFFFF, NULL, 0, SEMAPHORE_ALL_ACCESS);
         if (m_hSem == NULL) {
             DWORD dwError = GetLastError();
             *phr = AmHresultFromWin32(dwError);

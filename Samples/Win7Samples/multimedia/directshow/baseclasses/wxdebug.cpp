@@ -1047,10 +1047,10 @@ DWORD WINAPI DbgWaitForMultipleObjects(DWORD nCount,
 {
     DWORD dwWaitResult;
     do {
-        dwWaitResult = WaitForMultipleObjects(nCount,
+        dwWaitResult = WaitForMultipleObjectsEx(nCount,
                                               lpHandles,
                                               bWaitAll,
-                                              dwWaitTimeout);
+                                              dwWaitTimeout, FALSE);
         ASSERT((DWORD)(dwWaitResult - WAIT_OBJECT_0) < MAXIMUM_WAIT_OBJECTS);
     } while (dwWaitResult == WAIT_TIMEOUT);
     return dwWaitResult;

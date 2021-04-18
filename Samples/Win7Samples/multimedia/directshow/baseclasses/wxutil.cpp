@@ -282,7 +282,7 @@ BOOL
 CMsgThread::CreateThread(
     )
 {
-    m_hSem = CreateSemaphore(NULL, 0, 0x7FFFFFFF, NULL);
+    m_hSem = CreateSemaphoreEx(NULL, 0, 0x7FFFFFFF, NULL, 0, SEMAPHORE_ALL_ACCESS);
     if (m_hSem == NULL) {
         return FALSE;
     }
@@ -614,7 +614,7 @@ DWORD WINAPI WaitDispatchingMessages(
 
         //  Minimize the chance of actually dispatching any messages
         //  by seeing if we can lock immediately.
-        dwResult = WaitForMultipleObjects(nCount, hObjects, FALSE, 0);
+        dwResult = WaitForMultipleObjectsEx(nCount, hObjects, FALSE, 0, FALSE);
         if (dwResult < WAIT_OBJECT_0 + nCount) {
             break;
         }
