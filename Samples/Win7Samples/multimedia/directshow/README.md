@@ -20,6 +20,7 @@ Many samples require to link BaseClasses static library; I changed traditional l
 - [capture\amcap](capture/amcap)
 - [filters\async](filters/async)
 - [filters\ezrgb24](filters/ezrgb24)
+- [filters\dump](filters/dump)
 - [filters\pushsource](filters/pushsource)
 - [filters\wavdest](filters/wavdest)
 
