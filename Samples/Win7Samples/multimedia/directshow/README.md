@@ -14,6 +14,7 @@ Updated samples:
 - [dmo\dmodemo](dmo/dmodemo)
 - [players\dshowplayer](players/dshowplayer)
 - [vmr9\vmrplayer](vmr9/vmrplayer)
+- [vmr9\windowless](vmr9/windowless)
 
 Many samples require to link BaseClasses static library; I changed traditional llegacy ibrary naming (strmbase.lib, strbasd.lib) and placement, and these samples are updated for fresh environment and are re-refrenced to updated static library:
 
