@@ -559,8 +559,10 @@ HRESULT CBaseWindow::InitialiseWindow(HWND hwnd)
 
     if (m_bDoGetDC)
     {
-        EXECUTE_ASSERT(m_hdc = GetDC(hwnd));
-        EXECUTE_ASSERT(m_MemoryDC = CreateCompatibleDC(m_hdc));
+        m_hdc = GetDC(hwnd);
+        ASSERT(m_hdc);
+        m_MemoryDC = CreateCompatibleDC(m_hdc);
+        ASSERT(m_MemoryDC);
 
         EXECUTE_ASSERT(SetStretchBltMode(m_hdc,COLORONCOLOR));
         EXECUTE_ASSERT(SetStretchBltMode(m_MemoryDC,COLORONCOLOR));
@@ -2447,7 +2449,7 @@ HRESULT CImageDisplay::UpdateFormat(__inout VIDEOINFO *pVideoInfo)
 {
     ASSERT(pVideoInfo);
 
-    BITMAPINFOHEADER *pbmi = HEADER(pVideoInfo);
+    //BITMAPINFOHEADER *pbmi = HEADER(pVideoInfo);
     SetRectEmpty(&pVideoInfo->rcSource);
     SetRectEmpty(&pVideoInfo->rcTarget);
 
@@ -2679,7 +2681,7 @@ STDAPI ConvertVideoInfoToVideoInfo2(__inout AM_MEDIA_TYPE *pmt)
     if (NULL == pmt->pbFormat || pmt->cbFormat < sizeof(VIDEOINFOHEADER)) {
         return E_INVALIDARG;
     }
-    VIDEOINFO *pVideoInfo = (VIDEOINFO *)pmt->pbFormat;
+    //VIDEOINFO *pVideoInfo = (VIDEOINFO *)pmt->pbFormat;
     DWORD dwNewSize;
     HRESULT hr = DWordAdd(pmt->cbFormat, sizeof(VIDEOINFOHEADER2) - sizeof(VIDEOINFOHEADER), &dwNewSize);
     if (FAILED(hr)) {

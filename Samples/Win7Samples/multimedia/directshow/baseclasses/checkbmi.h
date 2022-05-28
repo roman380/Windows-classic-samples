@@ -103,7 +103,7 @@ __success(return != 0) __inline BOOL ValidateBitmapInfoHeader(
     if (pbmi->biCompression == BI_RGB || pbmi->biCompression == BI_BITFIELDS) {
         if (pbmi->biSizeImage != 0) {
             DWORD dwBits = (DWORD)pbmi->biWidth * (DWORD)pbmi->biBitCount;
-            DWORD dwWidthInBytes = ((DWORD)((dwBits+31) & (~31)) / 8);
+            dwWidthInBytes = ((DWORD)((dwBits+31) & (~31)) / 8);
             DWORD dwTotalSize = (DWORD)abs(pbmi->biHeight) * dwWidthInBytes;
             if (dwTotalSize > pbmi->biSizeImage) {
                 return FALSE;

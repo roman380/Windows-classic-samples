@@ -574,7 +574,7 @@ CPullPin::CleanupCancelled(void)
 	IMediaSample * pSample;
 	DWORD_PTR dwUnused;
 
-	HRESULT hr = m_pReader->WaitForNext(
+	m_pReader->WaitForNext(
 			    0,          // no wait
 			    &pSample,
 			    &dwUnused);

@@ -768,7 +768,7 @@ CTransInPlaceInputPin::NotifyAllocator(
             hr = E_FAIL;
         } else if(SUCCEEDED(hr)) {
             //  Must copy so set the allocator properties on the output
-            ALLOCATOR_PROPERTIES Props, Actual;
+            ALLOCATOR_PROPERTIES Props, Actual { };
             hr = pAllocator->GetProperties(&Props);
             if (SUCCEEDED(hr)) {
                 hr = pOutputAllocator->SetProperties(&Props, &Actual);
