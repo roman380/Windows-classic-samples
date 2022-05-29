@@ -128,6 +128,7 @@ AMovieSetupRegisterServer( CLSID   clsServer
   HRESULT hr = StringFromGUID2( clsServer
                               , szCLSID
                               , CHARS_IN_GUID );
+  DBG_UNREFERENCED_LOCAL_VARIABLE(hr);
   ASSERT( SUCCEEDED(hr) );
 
   // create key

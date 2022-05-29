@@ -556,6 +556,7 @@ __out_opt IMediaSample * CTransInPlaceFilter::Copy(IMediaSample *pSource)
             long lSourceSize  = pSource->GetSize();
             long lDestSize = pDest->GetSize();
 
+            DBG_UNREFERENCED_LOCAL_VARIABLE(lSourceSize);
             ASSERT(lDestSize >= lSourceSize && lDestSize >= lDataLength);
 
             if (FAILED(pSource->GetPointer(&pSourceBuffer)) ||

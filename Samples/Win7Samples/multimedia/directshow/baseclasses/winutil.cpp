@@ -457,7 +457,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,         // Window handle
 #endif
 
         LONG_PTR rc = _SetWindowLongPtr(hwnd, (DWORD) 0, pBaseWindow);
-
+        DBG_UNREFERENCED_LOCAL_VARIABLE(rc);
 
 #ifdef DEBUG
         if (0 == rc) {
@@ -1003,6 +1003,7 @@ void CDrawImage::UpdateColourTable(HDC hdc,__in BITMAPINFOHEADER *pbmi)
     UINT uiReturn = SetDIBColorTable(hdc,(UINT) 0,
                                      pbmi->biClrUsed,
                                      pColourTable);
+    DBG_UNREFERENCED_LOCAL_VARIABLE(uiReturn);
 
     // Should always succeed but check in debug builds
     ASSERT(uiReturn == pbmi->biClrUsed);

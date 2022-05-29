@@ -2379,6 +2379,7 @@ CCmdQueue::SetTimeAdvise(void)
 		    (HEVENT) HANDLE(m_evDue),
 		    &m_dwAdvise);
 
+    DBG_UNREFERENCED_LOCAL_VARIABLE(hr);
 	ASSERT(SUCCEEDED(hr));
 	m_tCurrentAdvise = current;
     }

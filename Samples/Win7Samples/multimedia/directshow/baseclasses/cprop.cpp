@@ -53,6 +53,7 @@ CBasePropertyPage::CBasePropertyPage(__in_opt LPCSTR pName,     // Debug only na
 STDMETHODIMP_(ULONG) CBasePropertyPage::NonDelegatingAddRef()
 {
     LONG lRef = InterlockedIncrement(&m_cRef);
+    DBG_UNREFERENCED_LOCAL_VARIABLE(lRef);
     ASSERT(lRef > 0);
     return max(ULONG(m_cRef),1ul);
 }
