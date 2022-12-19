@@ -4,8 +4,8 @@ Some of DirectShow classic Windows SDK samples in these subdirectories are upgra
 
 To build and run the code you need:
 
-- [Microsoft Visual Studio 2019 Community](https://visualstudio.microsoft.com/vs/community/)
-- Latest [Windows 10 SDK](https://developer.microsoft.com/en-US/windows/downloads/windows-10-sdk/), Windows 10 SDK (10.0.19041.0) for Windows 10, version 2004 should be okay
+- [Microsoft Visual Studio 2022 (or 2019) Community](https://visualstudio.microsoft.com/vs/community/)
+- Latest [Windows 10 SDK](https://developer.microsoft.com/en-US/windows/downloads/windows-10-sdk/), Windows 10 SDK (10.0.19041.0) for Windows 10, more recent versions are also okay
 
 Updated samples:
 
@@ -16,7 +16,7 @@ Updated samples:
 - [vmr9\vmrplayer](vmr9/vmrplayer)
 - [vmr9\windowless](vmr9/windowless)
 
-Many samples require to link BaseClasses static library; I changed traditional llegacy ibrary naming (strmbase.lib, strbasd.lib) and placement, and these samples are updated for fresh environment and are re-refrenced to updated static library:
+Many samples require to link BaseClasses static library; I changed traditional legacy library naming (`strmbase.lib`, `strmbasd.lib`) and placement, and these samples are updated for fresh environment and are re-refrenced to updated static library:
 
 - [capture\amcap](capture/amcap)
 - [filters\async](filters/async)
