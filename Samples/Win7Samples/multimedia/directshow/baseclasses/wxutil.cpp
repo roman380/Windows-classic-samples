@@ -576,11 +576,11 @@ STDAPI AMGetWideString(LPCWSTR psz, __deref_out LPWSTR *ppszReturn)
     *ppszReturn = NULL;
     ASSERT(psz);
     const size_t nameLen = wcslen(psz);
-    *ppszReturn = (LPWSTR)CoTaskMemAlloc(nameLen + sizeof(WCHAR));
+    *ppszReturn = (LPWSTR)CoTaskMemAlloc((nameLen + 1) * sizeof(WCHAR));
     if (*ppszReturn == NULL) {
        return E_OUTOFMEMORY;
     }
-    CopyMemory(*ppszReturn, psz, nameLen + sizeof(WCHAR));
+    CopyMemory(*ppszReturn, psz, (nameLen + 1) * sizeof(WCHAR));
     return NOERROR;
 }
 
