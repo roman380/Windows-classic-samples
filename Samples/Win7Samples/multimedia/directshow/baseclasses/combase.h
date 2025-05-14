@@ -209,7 +209,7 @@ protected:                      /* So we can override NonDelegatingRelease() */
 public:
 
     CUnknown(__in_opt LPCTSTR pName, __in_opt LPUNKNOWN pUnk);
-    virtual ~CUnknown() {};
+    virtual ~CUnknown() = default;
 
     // This is redundant, just use the other constructor
     //   as we never touch the HRESULT in this anyway

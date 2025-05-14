@@ -61,7 +61,7 @@ public:
                       int DialogId,  
                       int TitleId);
 #endif
-    virtual ~CBasePropertyPage() { };
+    virtual ~CBasePropertyPage() = default;
     DECLARE_IUNKNOWN
 
     // Override these virtual methods
