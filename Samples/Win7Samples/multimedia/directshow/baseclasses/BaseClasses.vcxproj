@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions Condition="'$(Platform)'=='Win32'">%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
@@ -57,6 +57,9 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories);.</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_LIB</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(OutDir)$(ProjectName).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)'!='Debug'">MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>%(AdditionalOptions) /Zc:strictStrings-</AdditionalOptions>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>%(AdditionalDependencies);strmiids.lib</AdditionalDependencies>
