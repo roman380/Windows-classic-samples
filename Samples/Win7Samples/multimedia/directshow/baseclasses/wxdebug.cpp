@@ -79,7 +79,7 @@ bool g_fAutoRefreshLevels = false;
 
 LPCTSTR pBaseKey = TEXT("SOFTWARE\\Microsoft\\DirectShow\\Debug");
 LPCTSTR pGlobalKey = TEXT("GLOBAL");
-static CHAR *pUnknownName = "UNKNOWN";
+static CHAR const* pUnknownName = "UNKNOWN";
 
 LPCTSTR TimeoutName = TEXT("TIMEOUT");
 
@@ -1079,7 +1079,7 @@ void WINAPI DbgSetWaitTimeout(DWORD dwTimeout)
     CGuidNameList GuidNames;
     int g_cGuidNames = sizeof(g_GuidNames) / sizeof(g_GuidNames[0]);
 
-    char *CGuidNameList::operator [] (const GUID &guid)
+    char const* CGuidNameList::operator [] (const GUID &guid)
     {
         for (int i = 0; i < g_cGuidNames; i++) {
             if (g_GuidNames[i].guid == guid) {

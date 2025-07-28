@@ -59,7 +59,7 @@
       <ProgramDataBaseFileName>$(OutDir)$(ProjectName).pdb</ProgramDataBaseFileName>
       <RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebug</RuntimeLibrary>
       <RuntimeLibrary Condition="'$(Configuration)'!='Debug'">MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>%(AdditionalOptions) /Zc:strictStrings-</AdditionalOptions>
+      <!-- <AdditionalOptions>%(AdditionalOptions) /Zc:strictStrings-</AdditionalOptions> -->
     </ClCompile>
     <Lib>
       <AdditionalDependencies>%(AdditionalDependencies);strmiids.lib</AdditionalDependencies>
