@@ -8,10 +8,10 @@
 //------------------------------------------------------------------------------
 
 #include <streams.h>
+#include <algorithm>
 
 #include "PushSource.h"
 #include "PushGuids.h"
-
 
 const AMOVIESETUP_MEDIATYPE sudOpPinTypes =
 {
@@ -298,7 +298,7 @@ HRESULT CPushPinBitmapSet::FillBuffer(IMediaSample *pSample)
     // Copy the DIB bits over into our filter's output buffer.
     // Since sample size may be larger than the image size, bound the copy size.
     // Remember that the new data has the same format that we specified in GetMediaType.
-    memcpy(pData, m_pImage[m_iCurrentBitmap], min(pVih->bmiHeader.biSizeImage, (DWORD) cbData));
+    memcpy(pData, m_pImage[m_iCurrentBitmap], std::min(pVih->bmiHeader.biSizeImage, (DWORD) cbData));
 
     // Set the timestamps that will govern playback frame rate.
     // If this file is getting written out as an AVI,

@@ -23,13 +23,13 @@ const AMOVIESETUP_MEDIATYPE sudOpPinTypes =
 , &MEDIASUBTYPE_NULL }; // clsMinorType
 
 const AMOVIESETUP_PIN sudOpPin =
-{ L"Output"          // strName
+{ const_cast<LPWSTR>(L"Output") // strName
 , FALSE              // bRendered
 , TRUE               // bOutput
 , FALSE              // bZero
 , FALSE              // bMany
 , &CLSID_NULL        // clsConnectsToFilter
-, L"Input"           // strConnectsToPin
+, const_cast<LPWSTR>(L"Input") // strConnectsToPin
 , 1                  // nTypes
 , &sudOpPinTypes };  // lpTypes
 

@@ -101,14 +101,14 @@ FormatRefTime(
 */
 void
 ProfileStringOut (
-    LPTSTR  szKey,
+    LPCTSTR  szKey,
     LPTSTR  sz
     );
 
 UINT
 ProfileStringIn (
-    LPTSTR  szKey,
-    LPTSTR  szDef,
+    LPCTSTR  szKey,
+    LPCTSTR  szDef,
     LPTSTR  sz,
     DWORD   cb
     );

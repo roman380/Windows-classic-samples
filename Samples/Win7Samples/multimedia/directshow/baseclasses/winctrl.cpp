@@ -10,6 +10,7 @@
 #include <streams.h>
 #include <intsafe.h>
 #include <checkbmi.h>
+#include <algorithm>
 
 // The control interface methods require us to be connected
 
@@ -1237,7 +1238,7 @@ STDMETHODIMP CBaseControlVideo::GetVideoPaletteEntries(long StartIndex,
     // Correct the number we can retrieve
 
     LONG Available = (LONG) pHeader->biClrUsed - StartIndex;
-    *pRetrieved = max(0,min(Available,Entries));
+    *pRetrieved = std::max<LONG>(0, std::min<LONG>(Available, Entries));
     if (*pRetrieved == 0) {
         return S_FALSE;
     }

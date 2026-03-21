@@ -7,6 +7,7 @@
 //------------------------------------------------------------------------------
 
 #include <strsafe.h>
+#include <algorithm>
 
 // c553f2c0-1529-11d0-b4d1-00805f6cbbea
 DEFINE_GUID(CLSID_AsyncSample,
@@ -82,7 +83,7 @@ public:
         LONGLONG llCurrentAvailable =
             static_cast <LONGLONG> (UInt32x32To64((timeGetTime() - m_dwTimeStart),m_dwKBPerSec));
  
-       *pSizeAvailable =  min(m_llLength, llCurrentAvailable);
+       *pSizeAvailable =  std::min(m_llLength, llCurrentAvailable);
         return m_llLength;
     }
 
@@ -222,7 +223,7 @@ public:
     }
 
 private:
-    BOOL CAsyncFilter::ReadTheFile(LPCTSTR lpszFileName);
+    BOOL ReadTheFile(LPCTSTR lpszFileName);
 
 private:
     LPWSTR     m_pFileName;

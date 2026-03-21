@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 #include "project.h"
-
+#include <algorithm>
 
 // Global data
 RECENTFILES aRecentFiles[MAX_RECENT_FILES]={0};
@@ -61,8 +61,8 @@ GetAppKey(
 \**************************************************************************/
 UINT
 ProfileStringIn(
-    LPTSTR  szKey,
-    LPTSTR  szDefault,
+    LPCTSTR  szKey,
+    LPCTSTR  szDefault,
     LPTSTR  szProfileString,
     DWORD   cb
     )
@@ -99,7 +99,7 @@ ProfileStringIn(
 \**************************************************************************/
 void
 ProfileStringOut(
-    LPTSTR  szKey,
+    LPCTSTR  szKey,
     LPTSTR  szProfileString
     )
 {
@@ -329,7 +329,7 @@ SetRecentFiles(
     //
     // Update the count of files, saturate to MAX_RECENT_FILES.
     //
-    iCountNew = min(iCount + 1, MAX_RECENT_FILES);
+    iCountNew = std::min(iCount + 1, MAX_RECENT_FILES);
 
     //
     // Clear the old stuff and the write out the recent files to disk

@@ -422,7 +422,7 @@ void RemoveGraphFromRot(DWORD pdwRegister)
 #endif
 
 
-void Msg(TCHAR *szFormat, ...)
+void Msg(LPCTSTR szFormat, ...)
 {
     TCHAR szBuffer[1024];  // Large buffer for long filenames or URLs
     const size_t NUMCHARS = sizeof(szBuffer) / sizeof(szBuffer[0]);

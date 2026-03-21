@@ -32,7 +32,7 @@ const AMOVIESETUP_MEDIATYPE sudOpPinTypes =
 
 const AMOVIESETUP_PIN sudOutputPinBitmap = 
 {
-    L"Output",      // Obsolete, not used.
+    const_cast<LPWSTR>(L"Output"), // Obsolete, not used.
     FALSE,          // Is this pin rendered?
     TRUE,           // Is it an output pin?
     FALSE,          // Can the filter create zero instances?
@@ -55,7 +55,7 @@ const AMOVIESETUP_FILTER sudPushSourceBitmap =
 
 const AMOVIESETUP_PIN sudOutputPinBitmapSet = 
 {
-    L"Output",      // Obsolete, not used.
+    const_cast<LPWSTR>(L"Output"), // Obsolete, not used.
     FALSE,          // Is this pin rendered?
     TRUE,           // Is it an output pin?
     FALSE,          // Can the filter create zero instances?
@@ -78,7 +78,7 @@ const AMOVIESETUP_FILTER sudPushSourceBitmapSet =
 
 const AMOVIESETUP_PIN sudOutputPinDesktop = 
 {
-    L"Output",      // Obsolete, not used.
+    const_cast<LPWSTR>(L"Output"), // Obsolete, not used.
     FALSE,          // Is this pin rendered?
     TRUE,           // Is it an output pin?
     FALSE,          // Can the filter create zero instances?

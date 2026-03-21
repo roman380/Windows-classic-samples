@@ -7,6 +7,9 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------------------------
 
+#pragma once
+
+#include <algorithm>
 
 //
 //  Define an internal filter that wraps the base CBaseReader stuff
@@ -68,7 +71,7 @@ public:
         LONGLONG llCurrentAvailable =
             Int32x32To64((timeGetTime() - m_dwTimeStart),m_dwKBPerSec);
 
-        *pSizeAvailable = min(m_llLength, llCurrentAvailable);
+        *pSizeAvailable = std::min(m_llLength, llCurrentAvailable);
         return m_llLength;
     }
 

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 #include <streams.h>
+#include <algorithm>
 
 #include "PushSource.h"
 #include "PushGuids.h"
@@ -280,7 +281,7 @@ HRESULT CPushPinBitmap::FillBuffer(IMediaSample *pSample)
 
     // Copy the DIB bits over into our filter's output buffer.
     // Since sample size may be larger than the image size, bound the copy size.
-    memcpy(pData, m_pImage, min(pVih->bmiHeader.biSizeImage, (DWORD) cbData));
+    memcpy(pData, m_pImage, std::min(pVih->bmiHeader.biSizeImage, (DWORD) cbData));
 
     // Set the timestamps that will govern playback frame rate.
     // If this file is getting written out as an AVI,

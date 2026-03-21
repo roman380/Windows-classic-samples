@@ -48,7 +48,7 @@ public:
 private:
 
     // Constructor
-    CEZrgb24(TCHAR *tszName, LPUNKNOWN punk, HRESULT *phr);
+    CEZrgb24(LPCTSTR tszName, LPUNKNOWN punk, HRESULT *phr);
 
     // Look after doing the special effect
     BOOL CanPerformEZrgb24(const CMediaType *pMediaType) const;

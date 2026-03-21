@@ -180,7 +180,7 @@ LONG WINAPI AppWndProc(HWND hwnd, UINT uiMessage, WPARAM wParam, LPARAM lParam);
 LONG PASCAL AppCommand(HWND hwnd, unsigned msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK AboutDlgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-void ErrMsg(LPTSTR sz,...);
+void ErrMsg(LPCTSTR sz,...);
 
 BOOL SetCaptureFile(HWND hWnd);
 BOOL SaveCaptureFile(HWND hWnd);
@@ -3687,9 +3687,9 @@ LONG PASCAL AppCommand(HWND hwnd, unsigned msg, WPARAM wParam, LPARAM lParam)
 |   ErrMsg - Opens a Message box with a error message in it.  The user can     |
 |            select the OK button to continue                                  |
 \*----------------------------------------------------------------------------*/
-void ErrMsg(LPTSTR szFormat,...)
+void ErrMsg(LPCTSTR szFormat,...)
 {
-    static TCHAR szBuffer[2048]={0};
+    static TCHAR szBuffer[2048] { 0 };
     const size_t NUMCHARS = sizeof(szBuffer) / sizeof(szBuffer[0]);
     const int LASTCHAR = NUMCHARS - 1;
 

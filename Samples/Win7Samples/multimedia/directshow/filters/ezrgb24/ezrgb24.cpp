@@ -92,7 +92,7 @@ const AMOVIESETUP_MEDIATYPE sudPinTypes =
 
 const AMOVIESETUP_PIN sudpPins[] =
 {
-    { L"Input",             // Pins string name
+    { const_cast<LPWSTR>(L"Input"), // Pins string name
       FALSE,                // Is it rendered
       FALSE,                // Is it an output
       FALSE,                // Are we allowed none
@@ -102,7 +102,7 @@ const AMOVIESETUP_PIN sudpPins[] =
       1,                    // Number of types
       &sudPinTypes          // Pin information
     },
-    { L"Output",            // Pins string name
+    { const_cast<LPWSTR>(L"Output"), // Pins string name
       FALSE,                // Is it rendered
       TRUE,                 // Is it an output
       FALSE,                // Are we allowed none
@@ -187,7 +187,7 @@ BOOL APIENTRY DllMain(HANDLE hModule,
 //
 // Constructor
 //
-CEZrgb24::CEZrgb24(TCHAR *tszName,
+CEZrgb24::CEZrgb24(LPCTSTR tszName,
                    LPUNKNOWN punk,
                    HRESULT *phr) :
     CTransformFilter(tszName, punk, CLSID_EZrgb24),

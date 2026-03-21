@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 #include "project.h"
-
+#include <algorithm>
 
 // Global data
 extern CMovie *pMovie;
@@ -350,7 +350,7 @@ VcdPlayerSeekCmd(
     rtDur = pMovie->GetDuration();
     rt = pMovie->GetCurrentPosition() + rtSeekBy;
 
-    rt = max(0, min(rt, rtDur));
+    rt = std::max<REFTIME>(0, std::min<REFTIME>(rt, rtDur));
 
     pMovie->SeekToPosition(rt,TRUE);
     SetCurrentPosition(pMovie->GetCurrentPosition());

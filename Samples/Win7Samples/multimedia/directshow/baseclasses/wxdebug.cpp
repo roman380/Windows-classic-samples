@@ -15,6 +15,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <dvdmedia.h>
+#include <algorithm>
 
 #ifdef DEBUG
 #ifdef UNICODE
@@ -163,7 +164,7 @@ void WINAPI DbgInitKeyLevels(HKEY hKey, bool fTakeMax)
         }
         if(fTakeMax)
         {
-            m_Levels[lKeyPos] = max(dwKeyValue,m_Levels[lKeyPos]);
+            m_Levels[lKeyPos] = std::max(dwKeyValue,m_Levels[lKeyPos]);
         }
         else
         {

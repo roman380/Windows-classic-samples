@@ -26,7 +26,7 @@ HRESULT SetupVideoWindow(void);
 HRESULT ChangePreviewState(int nShow);
 HRESULT HandleGraphEvent(void);
 
-void Msg(TCHAR *szFormat, ...);
+void Msg(LPCTSTR szFormat, ...);
 void CloseInterfaces(void);
 void ResizeVideoWindow(void);
 

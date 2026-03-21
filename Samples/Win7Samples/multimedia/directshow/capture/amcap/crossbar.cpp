@@ -483,7 +483,7 @@ HRESULT CCrossbar::GetInputType (
 //
 BOOL  CCrossbar::StringFromPinType (TCHAR *pc, int nSize, long lType)
 {
-    TCHAR *pcT;
+    LPCTSTR pcT;
     BOOL bSuccess;
 
     if (!pc || !nSize)

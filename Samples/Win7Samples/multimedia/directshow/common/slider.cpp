@@ -14,6 +14,7 @@
 #include "Slider.h"
 
 #include <windowsx.h>
+#include <algorithm>
 
 namespace SliderControl
 {
@@ -164,7 +165,7 @@ namespace SliderControl
 		LONG pos = MulDiv(x, logWidth, pixWidth) + pInfo->posMin;
 
 		// clamp to slider min and max
-		return max(pInfo->posMin, min(pos, pInfo->posMax));
+		return std::max<LONG>(pInfo->posMin, std::min<LONG>(pos, pInfo->posMax));
 	}
 
     //--------------------------------------------------------------------------------------

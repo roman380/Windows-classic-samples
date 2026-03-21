@@ -89,7 +89,7 @@ const AMOVIESETUP_MEDIATYPE sudPinTypes =
 
 const AMOVIESETUP_PIN sudPins =
 {
-    L"Input",                   // Pin string name
+    const_cast<LPWSTR>(L"Input"), // Pin string name
     FALSE,                      // Is it rendered
     FALSE,                      // Is it an output
     FALSE,                      // Allowed none

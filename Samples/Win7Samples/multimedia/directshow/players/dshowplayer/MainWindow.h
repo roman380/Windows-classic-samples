@@ -22,11 +22,9 @@
 
 #include <uuids.h>
 
-void NotifyError(HWND hwnd, TCHAR* sMessage, HRESULT hrStatus);
-
+void NotifyError(HWND hwnd, LPCTSTR sMessage, HRESULT hrStatus);
 
 const UINT WM_GRAPH_EVENT = WM_APP + 1;
-
 
 class MainWindow : public BaseWindow, public GraphEventCallback
 {

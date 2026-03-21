@@ -1351,7 +1351,7 @@ ISampleCaptureGraphBuilder::CreateVideoPin(
     //
 
     SmartPtr<IPin> pVideoOutPin;
-    HRESULT hr = pIMpeg2Demux->CreateOutputPin( &amTypeVideo, L"MpegVideo", &pVideoOutPin );
+    HRESULT hr = pIMpeg2Demux->CreateOutputPin( &amTypeVideo, const_cast<LPWSTR>(L"MpegVideo"), &pVideoOutPin );
     if( FAILED( hr ) )
     {
         return hr;
@@ -1460,7 +1460,7 @@ ISampleCaptureGraphBuilder::CreateAudioPin(
 
 
     SmartPtr<IPin> pAudioOutPin;
-    HRESULT hr = pIMpeg2Demux->CreateOutputPin(&amTypeAudio, L"MpegAudio", &pAudioOutPin);
+    HRESULT hr = pIMpeg2Demux->CreateOutputPin(&amTypeAudio, const_cast<LPWSTR>(L"MpegAudio"), &pAudioOutPin);
     if( FAILED( hr ) )
     {
         return hr;

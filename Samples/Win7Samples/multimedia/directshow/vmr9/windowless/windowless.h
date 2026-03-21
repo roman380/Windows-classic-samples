@@ -37,7 +37,7 @@ void UpdateMainTitle(void);
 void CheckSizeMenu(WPARAM wParam);
 void EnablePlaybackMenu(BOOL bEnable, int nMediaType);
 void GetFilename(TCHAR *pszFull, TCHAR *pszFile);
-void Msg(TCHAR *szFormat, ...);
+void Msg(LPCTSTR szFormat, ...);
 
 HRESULT InitializeWindowlessVMR(IBaseFilter **ppVmr9);
 void DisplayCapturedImage(LPCTSTR szFile);

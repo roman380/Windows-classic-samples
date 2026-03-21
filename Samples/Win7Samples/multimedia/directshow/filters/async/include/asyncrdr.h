@@ -196,13 +196,10 @@ public:
     // construction / destruction
 
     CAsyncReader(
-        TCHAR *pName,
+        LPCTSTR pName,
         LPUNKNOWN pUnk,
         CAsyncStream *pStream,
         HRESULT *phr);
-
-    ~CAsyncReader();
-
 
     // --- CBaseFilter methods ---
     int GetPinCount();

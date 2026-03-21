@@ -8,11 +8,11 @@
 //------------------------------------------------------------------------------
 
 #include <streams.h>
+#include <algorithm>
 
 #include "PushSource.h"
 #include "PushGuids.h"
 #include "DibHelper.h"
-
 
 /**********************************************
  *
@@ -345,7 +345,7 @@ HRESULT CPushPinDesktop::FillBuffer(IMediaSample *pSample)
 
 	// Copy the DIB bits over into our filter's output buffer.
     // Since sample size may be larger than the image size, bound the copy size.
-    int nSize = min(pVih->bmiHeader.biSizeImage, (DWORD) cbData);
+    int nSize = std::min(pVih->bmiHeader.biSizeImage, (DWORD) cbData);
     HDIB hDib = CopyScreenToBitmap(&m_rScreen, pData, (BITMAPINFO *) &(pVih->bmiHeader));
 
     if (hDib)

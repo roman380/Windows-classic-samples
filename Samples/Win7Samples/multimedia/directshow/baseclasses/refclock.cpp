@@ -9,15 +9,14 @@
 
 #include <streams.h>
 #include <limits.h>
+#include <algorithm>
 
 #ifdef DXMPERF
 #include "dxmperf.h"
 #endif // DXMPERF
 
-
 // 'this' used in constructor list
 #pragma warning(disable:4355)
-
 
 STDMETHODIMP CBaseReferenceClock::NonDelegatingQueryInterface(
     REFIID riid,
@@ -379,7 +378,7 @@ HRESULT CBaseReferenceClock::SetDefaultTimerResolution(
         DWORD dwMinResolution = (TIMERR_NOERROR == timeGetDevCaps(&tc, sizeof(tc)))
                             ? tc.wPeriodMin
                             : 1;
-        DWORD dwResolution = max( dwMinResolution, DWORD(timerResolution / 10000) );
+        DWORD dwResolution = std::max( dwMinResolution, DWORD(timerResolution / 10000) );
         if( dwResolution != m_TimerResolution ) {
             timeEndPeriod(m_TimerResolution);
             m_TimerResolution = dwResolution;

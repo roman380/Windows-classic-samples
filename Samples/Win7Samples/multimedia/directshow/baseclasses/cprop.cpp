@@ -6,8 +6,8 @@
 // Copyright (c) 1992-2001 Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------------------------
 
-
 #include <streams.h>
+#include <algorithm>
 
 // Constructor for the base property page class. As described in the header
 // file we must be initialised with dialog and title resource identifiers.
@@ -55,7 +55,7 @@ STDMETHODIMP_(ULONG) CBasePropertyPage::NonDelegatingAddRef()
     LONG lRef = InterlockedIncrement(&m_cRef);
     DBG_UNREFERENCED_LOCAL_VARIABLE(lRef);
     ASSERT(lRef > 0);
-    return max(ULONG(m_cRef),1ul);
+    return std::max<ULONG>(m_cRef, 1ul);
 }
 
 
@@ -74,7 +74,7 @@ STDMETHODIMP_(ULONG) CBasePropertyPage::NonDelegatingRelease()
         return ULONG(0);
     } else {
         //  Don't touch m_cRef again here!
-        return max(ULONG(lRef),1ul);
+        return std::max<ULONG>(lRef, 1ul);
     }
 }
 

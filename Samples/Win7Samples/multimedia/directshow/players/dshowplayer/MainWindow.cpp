@@ -697,7 +697,7 @@ void  MainWindow::StopTimer()
 }
 
 
-void NotifyError(HWND hwnd, TCHAR* sMessage, HRESULT hrStatus)
+void NotifyError(HWND hwnd, LPCTSTR sMessage, HRESULT hrStatus)
 {
 	TCHAR sTmp[512];
 
